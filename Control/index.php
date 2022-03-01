@@ -12,7 +12,10 @@ curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 // $output contains the output string
 $output = curl_exec($ch);
 
-echo $output;
+$decoded_json = json_decode($output, true);
+echo "Next Connection <br>";
+echo $decoded_json["stationboard"][0]["number"]." heading to ".$decoded_json["stationboard"][0]["to"]." leaving at " .date('h:i', strtotime($decoded_json["stationboard"][0]["stop"]["departure"])); ;
+
 
 // close curl resource to free up system resources
 curl_close($ch);
