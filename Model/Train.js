@@ -1,3 +1,5 @@
+const PublicTransport = require("./PublicTransport");
+
 class Train extends PublicTransport{
     constructor(platform) {
         super();
