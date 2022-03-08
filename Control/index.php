@@ -14,7 +14,7 @@ $output = curl_exec($ch);
 
 $decoded_json = json_decode($output, true);
 echo "Next Connection <br>";
-echo $decoded_json["stationboard"][0]["number"]." heading to ".$decoded_json["stationboard"][0]["to"]." leaving at " .date('h:i', strtotime($decoded_json["stationboard"][0]["stop"]["departure"])); ;
+echo $decoded_json["stationboard"][0]["number"]." heading to ".$decoded_json["stationboard"][0]["to"]." leaving at " .date('H:i', strtotime($decoded_json["stationboard"][0]["stop"]["departure"])); ;
 
 
 // close curl resource to free up system resources
