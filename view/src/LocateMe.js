@@ -8,17 +8,15 @@ function LocateMe() {
         maximumAge: 0
     };
     const [nearestStation, setNearestStation] = useState([])
+    const [currentLongitude, setLongitude] = useState(0)
+    const [currentLatitude, setLatitude] = useState(0)
+    const urlLocation = 'http://transport.opendata.ch/v1/locations?' +
+        'x=' + currentLatitude +
+        '&y=' + currentLongitude;
+
     useEffect(async ()=>{
         await navigator.geolocation.getCurrentPosition(success, error, optionsForGeoLocation);
     })
-    const [currentLongitude, setLongitude] = useState(0)
-    const [currentLatitude, setLatitude] = useState(0)
-    const [currenStation, setStation] = useState("")
-    const urlStationboard='https://transport.opendata.ch/v1/stationboard?station='+currenStation+'"&limit=10';
-
-    const axios = require('axios').default;
-
-
     async function success(pos) {
         let crd = pos.coords;
         setLongitude(crd.longitude)
@@ -30,9 +28,10 @@ function LocateMe() {
         console.warn(`ERROR(${err.code}): ${err.message}`);
     }
 
-    const urlLocation = 'http://transport.opendata.ch/v1/locations?' +
-        'x=' + currentLatitude +
-        '&y=' + currentLongitude;
+    const axios = require('axios').default;
+
+
+
 
 
 
@@ -51,7 +50,8 @@ function LocateMe() {
 
     async function getNextConneticon(station) {
         try {
-            setStation(station)
+            const urlStationboard='https://transport.opendata.ch/v1/stationboard?station='+station+'"&limit=10';
+            console.log(urlStationboard)
             const response = await axios.get(urlStationboard);
             console.log(response.data)
 
