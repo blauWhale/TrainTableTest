@@ -10,6 +10,7 @@ function LocateMe() {
     const [nearestStation, setNearestStation] = useState([])
     const [currentLongitude, setLongitude] = useState(0)
     const [currentLatitude, setLatitude] = useState(0)
+    const [stationboard, setStationboard] = useState([])
     const urlLocation = 'http://transport.opendata.ch/v1/locations?' +
         'x=' + currentLatitude +
         '&y=' + currentLongitude;
@@ -51,9 +52,9 @@ function LocateMe() {
     async function getNextConneticon(station) {
         try {
             const urlStationboard='https://transport.opendata.ch/v1/stationboard?station='+station+'"&limit=10';
-            console.log(urlStationboard)
             const response = await axios.get(urlStationboard);
             console.log(response.data)
+            setStationboard(response.data.stationboard)
 
         } catch (error) {
             console.error(error);
@@ -69,13 +70,22 @@ function LocateMe() {
             <div>
 
             </div>
-            {nearestStation && nearestStation.map((station) => {
+            {nearestStation && nearestStation.slice(1).map((station) => {
                 return(
+                    <div style={{flexDirection:"column",
+                        alignItems:"center", margin: "5px"}}>
                     <button onClick={() => {
                         getNextConneticon(station.name)
                     }} key={station.id}>{station.name}</button>
+                    </div>
                 )
             })}
+            {stationboard && stationboard.map((connection) => {
+                return(
+                    <p>{connection.stop.departure+" " + connection.category + " " + connection.number + " heading to " + connection.to}</p>
+                )
+            })}
+
         </>
     )
 }
