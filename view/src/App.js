@@ -1,7 +1,8 @@
-import './App.css';
 import LocateMe from "./LocateMe";
+import {ChakraProvider} from "@chakra-ui/react";
 function App() {
-  return <LocateMe/>
+
+  return <ChakraProvider><LocateMe/></ChakraProvider>
 
 }
 

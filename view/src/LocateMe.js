@@ -1,5 +1,7 @@
 import React, {useEffect, useState} from "react"
-import {axios} from "axios";
+import axios from "axios";
+import moment from 'moment';
+import {Button, Center, Stack, Table, TableCaption, Tbody, Td, Th, Thead, Tr} from '@chakra-ui/react'
 
 function LocateMe() {
     let optionsForGeoLocation = {
@@ -15,14 +17,14 @@ function LocateMe() {
         'x=' + currentLatitude +
         '&y=' + currentLongitude;
 
-    useEffect(async ()=>{
+    useEffect(async () => {
         await navigator.geolocation.getCurrentPosition(success, error, optionsForGeoLocation);
     })
+
     async function success(pos) {
         let crd = pos.coords;
         setLongitude(crd.longitude)
         setLatitude(crd.latitude)
-        console.log(currentLatitude + " " + currentLongitude)
     }
 
     function error(err) {
@@ -32,26 +34,21 @@ function LocateMe() {
     const axios = require('axios').default;
 
 
-
-
-
-
     // Want to use async/await? Add the `async` keyword to your outer function/method.
     async function getNearestStation() {
         try {
-            console.log(urlLocation)
             const response = await axios.get(urlLocation);
-            console.log(response.data.stations)
             setNearestStation(response.data.stations)
+            console.log(stationboard.length)
 
         } catch (error) {
             console.error(error);
         }
     }
 
-    async function getNextConneticon(station) {
+    async function getNextConnection(station) {
         try {
-            const urlStationboard='https://transport.opendata.ch/v1/stationboard?station='+station+'"&limit=10';
+            const urlStationboard = 'https://transport.opendata.ch/v1/stationboard?station=' + station + '"&limit=10';
             const response = await axios.get(urlStationboard);
             console.log(response.data)
             setStationboard(response.data.stationboard)
@@ -63,31 +60,51 @@ function LocateMe() {
 
     return (
         <>
-            <button onClick={() => {
+
+            <Button colorScheme='purple' onClick={() => {
                 getNearestStation()
             }}>Show me nearest Connection
-            </button>
-            <div>
+            </Button>
+            <Stack spacing={30} direction='row' align='center' marginTop={10}>
+                {nearestStation && nearestStation.slice(1).map((station) => {
+                    return (
+                        <Button colorScheme='cyan' onClick={() => {
+                            getNextConnection(station.name)
+                        }} key={station.id}>{station.name}</Button>
 
-            </div>
-            {nearestStation && nearestStation.slice(1).map((station) => {
-                return(
-                    <div style={{flexDirection:"column",
-                        alignItems:"center", margin: "5px"}}>
-                    <button onClick={() => {
-                        getNextConneticon(station.name)
-                    }} key={station.id}>{station.name}</button>
-                    </div>
+                    )
+
+                })}
+            </Stack>
+            {!stationboard.length ? (
+               <p></p>):
+                        ( <Table variant='simple'>
+                            <TableCaption>{stationboard.name}</TableCaption>
+                            <Thead>
+                                <Tr>
+                                    <Th>Time</Th>
+                                    <Th>Category</Th>
+                                    <Th>Line</Th>
+                                    <Th>Heading To</Th>
+                                </Tr>
+                            </Thead>
+                            <Tbody>
+                                {stationboard && stationboard.map((connection) => {
+                                    return (
+                                        <Tr>
+                                            <Td>{moment(connection.stop.departure).format('HH:mm')}</Td>
+                                            <Td>{connection.category}</Td>
+                                            <Td>{connection.number}</Td>
+                                            <Td>{connection.to}</Td>
+                                        </Tr>
+
+
+                                    )
+                                })}
+                            </Tbody>
+                        </Table>)}
+                </>
                 )
-            })}
-            {stationboard && stationboard.map((connection) => {
-                return(
-                    <p>{connection.stop.departure+" " + connection.category + " " + connection.number + " heading to " + connection.to}</p>
-                )
-            })}
+            }
 
-        </>
-    )
-}
-
-export default LocateMe
+            export default LocateMe
