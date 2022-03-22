@@ -1,7 +1,5 @@
-import React, {useEffect, useState} from "react"
-import axios from "axios";
-import moment from 'moment';
-import {Button, Center, Stack, Table, TableCaption, Tbody, Td, Th, Thead, Tr} from '@chakra-ui/react'
+import React, { useEffect, useState } from "react"
+import moment from 'moment'
 
 function LocateMe() {
     let optionsForGeoLocation = {
@@ -33,6 +31,52 @@ function LocateMe() {
 
     const axios = require('axios').default;
 
+    const menu = (
+        <ul className="menu bg-base-100 w-56 p-2 rounded-box">
+            {nearestStation.slice(1).map((station) => {
+                return (
+
+                    <li onClick={() => {
+                        getNextConnection(station.name)
+                    }} key={station.id}><a>{station.name}</a></li>
+                )
+
+            })}
+        </ul>
+    )
+
+    const table = (
+        <div className="overflow-x-auto">
+            <table className="table w-full">
+                <p>{stationboard.name}</p>
+                <thead>
+                    <tr>
+                        <th>Time</th>
+                        <th>Category</th>
+                        <th>Line</th>
+                        <th>Heading To</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {stationboard && stationboard.map((connection) => {
+                        return (
+                            <tr>
+                                <td>{moment(connection.stop.departure).format('HH:mm')}</td>
+                                <td>{connection.category} </td>
+                                <td>{connection.number}</td>
+                                <td>{connection.to}</td>
+                            </tr>
+
+
+                        )
+                    })}
+                </tbody>
+            </table>
+        </div>
+
+
+    )
+
 
     // Want to use async/await? Add the `async` keyword to your outer function/method.
     async function getNearestStation() {
@@ -60,54 +104,18 @@ function LocateMe() {
 
     return (
         <>
-            <Center>
-            <Button colorScheme='purple' onClick={() => {
+            <button className="btn btn-primary mx-auto" onClick={() => {
                 getNearestStation()
             }}>Show me nearest Connection
-            </Button>
-            </Center>
-
-            <Stack spacing={30} direction='row' align='center' marginTop={10}>
-                {nearestStation && nearestStation.slice(1).map((station) => {
-                    return (
-                        <Button colorScheme='cyan' onClick={() => {
-                            getNextConnection(station.name)
-                        }} key={station.id}>{station.name}</Button>
-
-                    )
-
-                })}
-            </Stack>
-            {!stationboard.length ? (
-               <p></p>):
-                        ( <Table variant='simple'>
-                            <TableCaption>{stationboard.name}</TableCaption>
-                            <Thead>
-                                <Tr>
-                                    <Th>Time</Th>
-                                    <Th>Category</Th>
-                                    <Th>Line</Th>
-                                    <Th>Heading To</Th>
-                                </Tr>
-                            </Thead>
-                            <Tbody>
-                                {stationboard && stationboard.map((connection) => {
-                                    return (
-                                        <Tr>
-                                            <Td>{moment(connection.stop.departure).format('HH:mm')}</Td>
-                                            <Td>{connection.category} </Td>
-                                            <Td>{connection.number}</Td>
-                                            <Td>{connection.to}</Td>
-                                        </Tr>
+            </button>
 
 
-                                    )
-                                })}
-                            </Tbody>
-                        </Table>)}
+            {nearestStation && menu}
 
-            </>
-                )
-            }
+            {!stationboard.length ? (<p> No results found!</p>) : table}
 
-            export default LocateMe
+        </>
+    )
+}
+
+export default LocateMe

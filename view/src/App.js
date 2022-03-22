@@ -1,10 +1,9 @@
 import LocateMe from "./LocateMe";
-import {ChakraProvider} from "@chakra-ui/react";
 
 function App() {
 
-  return <ChakraProvider><LocateMe/></ChakraProvider>
+  return <LocateMe/>
 
 }
 
-export default App;
+export default App
