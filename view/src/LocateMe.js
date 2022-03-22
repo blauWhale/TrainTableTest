@@ -60,11 +60,13 @@ function LocateMe() {
 
     return (
         <>
-
+            <Center>
             <Button colorScheme='purple' onClick={() => {
                 getNearestStation()
             }}>Show me nearest Connection
             </Button>
+            </Center>
+
             <Stack spacing={30} direction='row' align='center' marginTop={10}>
                 {nearestStation && nearestStation.slice(1).map((station) => {
                     return (
@@ -93,7 +95,7 @@ function LocateMe() {
                                     return (
                                         <Tr>
                                             <Td>{moment(connection.stop.departure).format('HH:mm')}</Td>
-                                            <Td>{connection.category}</Td>
+                                            <Td>{connection.category} </Td>
                                             <Td>{connection.number}</Td>
                                             <Td>{connection.to}</Td>
                                         </Tr>
@@ -103,7 +105,8 @@ function LocateMe() {
                                 })}
                             </Tbody>
                         </Table>)}
-                </>
+
+            </>
                 )
             }
 
