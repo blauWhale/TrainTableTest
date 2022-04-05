@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react"
 import moment from 'moment'
 import { themeChange } from 'theme-change'
-import Navbar from "./components/Navbar";
+import Navbar from "./components/Navbar"
+import Stationboard from "./components/Stationboard"
 
 function LocateMe() {
     let optionsForGeoLocation = {
@@ -119,11 +120,12 @@ function LocateMe() {
 
     return (
         <>
-            <Navbar />
+     
+             <Navbar />
             <div className="flex justify-center mt-8 mb-8">
                 <div class="form-control mx-auto">
                     <label class="input-group">
-                        <input type="text" placeholder="Enter destination" class="input input-bordered input-primary" />
+                    <Stationboard/>
                         <button className="btn btn-primary mx-auto">
                             Search
                         </button>
@@ -162,7 +164,7 @@ function LocateMe() {
                             </div>
                         </div>
                     </div>
-                        )}
+                        )} 
 
             </>
 
