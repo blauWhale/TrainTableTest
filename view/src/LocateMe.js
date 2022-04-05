@@ -66,7 +66,10 @@ function LocateMe() {
                     {stationboard && stationboard.map((connection) => {
                         return (
                             <tr>
-                                <td>{moment(connection.stop.departure).format('HH:mm')}</td>
+                                <td style={{fontWeight: "bold"}}>{
+                                    "in " + moment(connection.stop.departure).diff(moment(),'minutes',false) + "'"
+                                }</td>
+
                                 <td>{(() => {
                                     switch (connection.category) {
                                         case "T":
