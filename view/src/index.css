@@ -19,3 +19,8 @@ code {
 .shadow{
   box-shadow: 0 4px 8px 0 rgba(124, 124, 124, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
+
+.pulse {
+  animation: pulse 1.5s infinite;
+}
+
