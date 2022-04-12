@@ -1,19 +1,17 @@
 import React, { useEffect, useState } from 'react'
-import $ from "jquery"
 
-export default function Stationboard() {
+export default function Search({setStation}) {
     const axios = require('axios').default;
     const [requestParam,setRequestParam] = useState()
-    useEffect(() => {
 
+    useEffect(() => {
         axios.get('https://transport.opendata.ch/v1/locations',{
             params:{
                 query: requestParam,
                 type:"station"
             }
         })
-           // .then(response => response.json())
-            .then(data => console.log(data));
+            .then(data => setStation(data.data.stations));
 
     }, [requestParam])
 
