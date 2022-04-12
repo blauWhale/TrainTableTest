@@ -68,9 +68,31 @@ function LocateMe() {
                         return (
                             <tr>
                                 <td style={{fontWeight: "bold"}}>{
+                                   <div>
+                                {
+                                    (() => {
+                                    if(moment(connection.stop.departure).diff(moment(),'minutes',false) > 0) {
+                                    return (
                                     "in " + moment(connection.stop.departure).diff(moment(),'minutes',false) + "'"
-                                }</td>
+                                    )
+                                } else if (moment(connection.stop.departure).diff(moment(),'minutes',false) === 0) {
+                                    return (
+                                    <p className={"pulse"}>Jetzt</p>
+                                    )
+                                } else {
+                                    return (
+                                    "vor " + moment(connection.stop.departure).diff(moment(),'minutes',false)*-1 + "'"
+                                    )
+                                }
+                                })()
+                                }
+                                    </div>
 
+                                }
+
+
+
+                                </td>
                                 <td>{(() => {
                                     switch (connection.category) {
                                         case "T":
@@ -81,6 +103,22 @@ function LocateMe() {
                                             return <span class="material-icons">
                                                 directions_bus
                                             </span>
+                                        case "S":
+                                            return <span class="material-icons">
+                                                train
+                                            </span>
+                                        case "IC":
+                                            return <span class="material-icons">
+                                                train
+                                            </span>
+                                        case "IR":
+                                            return <span class="material-icons">
+                                                train
+                                            </span>
+                                        case "RE":
+                                            return <span class="material-icons">
+                                                train
+                                            </span>
                                         default:
                                             return 'error'
                                     }
@@ -88,7 +126,6 @@ function LocateMe() {
                                 <td>{connection.number}</td>
                                 <td>{connection.to}</td>
                             </tr>
-
 
                         )
                     })}
