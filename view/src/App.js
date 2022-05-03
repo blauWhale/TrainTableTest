@@ -1,8 +1,8 @@
-import LocateMe from "./LocateMe";
+import Homepage from "./Homepage";
 
 function App() {
 
-  return <LocateMe/>
+  return <Homepage/>
 
 }
 
