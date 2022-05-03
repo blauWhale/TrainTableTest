@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react"
-import moment from 'moment'
 import { themeChange } from 'theme-change'
+import Map from "./components/Map"
 import Navbar from "./components/Navbar"
 import Search from "./components/Search"
 import Table from "./components/Table";
@@ -15,6 +15,7 @@ function Homepage() {
     const [currentLongitude, setLongitude] = useState(0)
     const [currentLatitude, setLatitude] = useState(0)
     const [stationboard, setStationboard] = useState([])
+    const [currentPosition, setCurrentPosition] = useState([])
     const [stations, setStations] = useState('')
     const urlLocation = 'http://transport.opendata.ch/v1/locations?' +
         'x=' + currentLatitude +
@@ -67,10 +68,19 @@ function Homepage() {
     }
 
     async function getNextConnection(station) {
+
+
+        await axios.get('https://transport.opendata.ch/v1/locations', {
+            params: {
+                query: station,
+                type: "station"
+            }
+        }).then(data => {
+            setCurrentPosition(data.data.stations[0].coordinate)
+        })
         try {
             const urlStationboard = 'https://transport.opendata.ch/v1/stationboard?station=' + station + '"&limit=10';
-            const response = await axios.get(urlStationboard);
-            console.log(response.data)
+            const response = await axios.get(urlStationboard)
             setStationboard(response.data.stationboard)
 
         } catch (error) {
@@ -83,7 +93,7 @@ function Homepage() {
 
             <Navbar />
             <div className="flex justify-center mt-8 mb-8">
-                <Search setStation={setStations} />
+                <Search onSubmit={getNextConnection} />
                 <p>OR</p>
                 <button className="btn btn-primary mx-auto" onClick={() => {
                     getNearestStation()
@@ -91,37 +101,46 @@ function Homepage() {
                 </button>
             </div>
             {(nearestStation.length !== 0 && stationboard.length === 0) && (
-                <div class="card w-1/2 mx-auto bg-base-100 shadow card-bordered">
-                    <div class="card-body">
-                        <h2 class="card-title">Stations</h2>
+                <div className="card w-1/2 mx-auto bg-base-100 shadow card-bordered">
+                    <div className="card-body">
+                        <h2 className="card-title">Stations</h2>
                         {menu}
                     </div>
                 </div>)}
 
             {(nearestStation.length !== 0 && stationboard.length !== 0) && (
-                <div class="grid grid-cols-2">
+                <div className="grid grid-cols-2">
                     <div>
-                        <div class="card w-100 mt-4 ml-4 mr-2 mb-4 h-auto bg-base-100 shadow card-bordered">
-                            <div class="card-body">
-                                <h2 class="card-title">Stations</h2>
+                        <div className="card w-100 mt-4 ml-4 mr-2 mb-4 h-auto bg-base-100 shadow card-bordered">
+                            <div className="card-body">
+                                <h2 className="card-title">Stations</h2>
                                 {menu}
                             </div>
                         </div>
                     </div>
                     <div>
-                        <div class="card w-100 mt-4 mr-4 ml-2 h-auto bg-base-100 shadow card-bordered">
-                            <div class="card-body">
+                        <div className="card w-100 mt-4 mr-4 ml-2 h-auto bg-base-100 shadow card-bordered">
+                            <div className="card-body">
                                 <Table stationboard={stationboard} />
                             </div>
                         </div>
                     </div>
                 </div>
             )}
+
             {(nearestStation.length === 0 && stationboard.length !== 0) && (
-                <div class="grid grid-cols-1">
+                <div className="grid grid-cols-2">
                     <div>
-                        <div class="card w-100 mt-4 mr-4 ml-2 h-auto bg-base-100 shadow card-bordered">
-                            <div class="card-body">
+                        <div className="card w-100 mt-4 ml-4 mr-2 mb-4 h-1/2 bg-base-100 shadow card-bordered">
+                            <div className="card-body">
+                                <h2 className="card-title">Current Location</h2>
+                                {(currentPosition.x & currentPosition.y) && <Map x={currentPosition.x} y={currentPosition.y} />}
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div className="card w-100 mt-4 mr-4 ml-2 h-auto bg-base-100 shadow card-bordered">
+                            <div className="card-body">
                                 <Table stationboard={stationboard} />
                             </div>
                         </div>

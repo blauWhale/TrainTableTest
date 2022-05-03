@@ -2,13 +2,13 @@ import React from 'react'
 
 export default function Navbar() {
   return (
-    <div class="navbar bg-base-100">
-            <div class="navbar-start">
+    <div className="navbar bg-base-100">
+            <div className="navbar-start">
             </div>
-            <div class="navbar-center">
-                <a class="btn btn-ghost normal-case text-xl">UltraTrain</a>
+            <div className="navbar-center">
+                <a className="btn btn-ghost normal-case text-xl">UltraTrain</a>
             </div>
-            <div class="navbar-end">
+            <div className="navbar-end">
                 <div style={{marginRight:"15px", fontWeight:"bold"}}>Theme: </div>
             <select data-choose-theme className="select select-bordered">
                                 <option value="dark">Dark</option>

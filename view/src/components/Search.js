@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react'
 import "../index.css"
+import Map from './Map'
 
 export default function Stationboard({ onSubmit }) {
     const axios = require('axios').default;
@@ -13,29 +14,25 @@ export default function Stationboard({ onSubmit }) {
                 query: requestParam,
                 type: "station"
             }
-        })
-            // .then(response => response.json())
-            .then(data => {
-                console.log(data)
+        }).then(data => {
                 setData(data)
             })
 
     }, [requestParam])
 
     function handleSubmit(station) {
-        console.log(station)
         onSubmit(station)
     }
 
     return (
-        <div class="form-control mx-auto">
-            <label class="input-group">
+        <div className="form-control mx-auto">
+            <label className="input-group">
                 <article>
-                    <div class="ui-widget station">
-                        <input list="list" class="input input-primary" ref={inputRef} style={{ borderRadius: "0" }} id="station" onChange={e => { setRequestParam(e.target.value) }} placeholder="Station" />
+                    <div className="ui-widget station">
+                        <input list="list" className="input input-primary rounded" ref={inputRef} style={{ borderRadius: "10px 0 0 10px" }} id="station" onChange={e => { setRequestParam(e.target.value) }} placeholder="Station" />
                         <datalist id="list">
                             {data && data.data.stations.map((option) => {
-                                return <option value={option.name} key={option.id} />
+                                return <option value={option.name} key={option.name} />
                             })}
                         </datalist>
                     </div>

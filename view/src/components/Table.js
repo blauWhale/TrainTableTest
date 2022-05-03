@@ -48,15 +48,15 @@ function Table({stationboard}){
                             <td>{(() => {
                                 switch (connection.category) {
                                     case "T":
-                                        return <span class="material-icons">
+                                        return <span className="material-icons">
                                                 tram
                                             </span>
                                     case "B":
-                                        return <span class="material-icons">
+                                        return <span className="material-icons">
                                                 directions_bus
                                             </span>
                                     default:
-                                        return <span class="material-icons">
+                                        return <span className="material-icons">
                                                 train
                                             </span>
                                 }

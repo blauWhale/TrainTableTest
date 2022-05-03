@@ -27,3 +27,7 @@ code {
 input::-webkit-calendar-picker-indicator {
   display: none !important;
 }
+.leaflet-container { 
+  height: 300px;
+  width: 620px;
+}
