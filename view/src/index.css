@@ -24,3 +24,6 @@ code {
   animation: pulse 1.5s infinite;
 }
 
+input::-webkit-calendar-picker-indicator {
+  display: none !important;
+}

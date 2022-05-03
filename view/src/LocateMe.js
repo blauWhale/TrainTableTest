@@ -152,7 +152,6 @@ function LocateMe() {
             const response = await axios.get(urlStationboard);
             console.log(response.data)
             setStationboard(response.data.stationboard)
-
         } catch (error) {
             console.error(error);
         }
@@ -163,14 +162,7 @@ function LocateMe() {
      
              <Navbar />
             <div className="flex justify-center mt-8 mb-8">
-                <div class="form-control mx-auto">
-                    <label class="input-group">
-                    <Stationboard/>
-                        <button className="btn btn-primary mx-auto">
-                            Search
-                        </button>
-                    </label>
-                </div>
+                <Stationboard onSubmit={getNextConnection}/>
                 <p>OR</p>
                 <button className="btn btn-primary mx-auto" onClick={() => {
                     getNearestStation()
