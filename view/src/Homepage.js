@@ -81,18 +81,9 @@ function Homepage() {
     return (
         <>
 
-             <Navbar />
+            <Navbar />
             <div className="flex justify-center mt-8 mb-8">
-                <div class="form-control mx-auto">
-                    <label class="input-group">
-                    <Search setStation={setStations}/>
-                        <button className="btn btn-primary mx-auto" onClick={() => {
-                            setNearestStation(stations)
-                        }}>
-                            Search
-                        </button>
-                    </label>
-                </div>
+                <Search setStation={setStations} />
                 <p>OR</p>
                 <button className="btn btn-primary mx-auto" onClick={() => {
                     getNearestStation()
@@ -100,38 +91,38 @@ function Homepage() {
                 </button>
             </div>
             {(nearestStation.length !== 0 && stationboard.length === 0) && (
-            <div class="card w-1/2 mx-auto bg-base-100 shadow card-bordered">
-                <div class="card-body">
-                    <h2 class="card-title">Stations</h2>
-                    {menu}
-                </div>
-            </div>)}
+                <div class="card w-1/2 mx-auto bg-base-100 shadow card-bordered">
+                    <div class="card-body">
+                        <h2 class="card-title">Stations</h2>
+                        {menu}
+                    </div>
+                </div>)}
 
             {(nearestStation.length !== 0 && stationboard.length !== 0) && (
-                        <div class="grid grid-cols-2">
-                        <div>
-                            <div class="card w-100 mt-4 ml-4 mr-2 mb-4 h-auto bg-base-100 shadow card-bordered">
-                                <div class="card-body">
-                                    <h2 class="card-title">Stations</h2>
-                                    {menu}
-                                </div>
-                            </div>
-                        </div>
-                        <div>
-                            <div class="card w-100 mt-4 mr-4 ml-2 h-auto bg-base-100 shadow card-bordered">
-                                <div class="card-body">
-                                    <Table stationboard={stationboard}/>
-                                </div>
+                <div class="grid grid-cols-2">
+                    <div>
+                        <div class="card w-100 mt-4 ml-4 mr-2 mb-4 h-auto bg-base-100 shadow card-bordered">
+                            <div class="card-body">
+                                <h2 class="card-title">Stations</h2>
+                                {menu}
                             </div>
                         </div>
                     </div>
-                        )}
+                    <div>
+                        <div class="card w-100 mt-4 mr-4 ml-2 h-auto bg-base-100 shadow card-bordered">
+                            <div class="card-body">
+                                <Table stationboard={stationboard} />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            )}
             {(nearestStation.length === 0 && stationboard.length !== 0) && (
                 <div class="grid grid-cols-1">
                     <div>
                         <div class="card w-100 mt-4 mr-4 ml-2 h-auto bg-base-100 shadow card-bordered">
                             <div class="card-body">
-                                <Table stationboard={stationboard}/>
+                                <Table stationboard={stationboard} />
                             </div>
                         </div>
                     </div>

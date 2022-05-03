@@ -9,7 +9,7 @@ export default function Navbar() {
                 <a class="btn btn-ghost normal-case text-xl">UltraTrain</a>
             </div>
             <div class="navbar-end">
-                <div style={{marginRight:"15px", fontWeight:"bold"}}>Choose a theme => </div>
+                <div style={{marginRight:"15px", fontWeight:"bold"}}>Theme: </div>
             <select data-choose-theme className="select select-bordered">
                                 <option value="dark">Dark</option>
                                 <option value="light">Light</option>
