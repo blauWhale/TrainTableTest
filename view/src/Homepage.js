@@ -58,6 +58,7 @@ function Homepage() {
 
     async function getNearestStation() {
         try {
+            setStationboard([])
             const response = await axios.get(urlLocation);
             setNearestStation(response.data.stations)
             console.log(stations)
@@ -68,8 +69,7 @@ function Homepage() {
     }
 
     async function getNextConnection(station) {
-
-
+        setNearestStation([])
         await axios.get('https://transport.opendata.ch/v1/locations', {
             params: {
                 query: station,
@@ -133,7 +133,7 @@ function Homepage() {
                     <div>
                         <div className="card w-100 mt-4 ml-4 mr-2 mb-4 h-1/2 bg-base-100 shadow card-bordered">
                             <div className="card-body">
-                                <h2 className="card-title">Current Location</h2>
+                                <h2 className="card-title">Departure Location</h2>
                                 {(currentPosition.x & currentPosition.y) && <Map x={currentPosition.x} y={currentPosition.y} />}
                             </div>
                         </div>
