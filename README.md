@@ -10,7 +10,7 @@
 - [Menüstrukturen Analyze](https://github.com/blauWhale/TrainTimeTable/blob/main/Admin/Men%C3%BCstrukturen.docx)<br>
 - [Hilfestellungen Analyze](https://github.com/blauWhale/TrainTimeTable/blob/main/Admin/Hilfestellungerl%C3%A4uterung.pdf)<br>
 - [Fehlerhandling Analyze](https://github.com/blauWhale/TrainTimeTable/blob/main/Admin/Analyse.pdf)<br>
-- [Good UI Video Analyze](#)<br>
+- [Good UI Video Analyze](https://github.com/blauWhale/TrainTimeTable/blob/main/Admin/Zusammenfassung.docx)<br>
 - [Corporate Design Analyze](https://github.com/blauWhale/TrainTimeTable/blob/main/Admin/Generali%20Corporate%20Design.docx)<br>
 
 ### Ereignisverarbeitung Analyze
